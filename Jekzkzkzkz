@@ -1,0 +1,22 @@
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackContext
+
+def start(update: Update, context: CallbackContext):
+    update.message.reply_text("سلام رضا! رباتت الان روشنه و آماده به کاره 😎")
+
+def echo(update: Update, context: CallbackContext):
+    update.message.reply_text(f"تو گفتی: {update.message.text}")
+
+def main():
+    TOKEN = "8393512214:AAEb2t1D2UPQ7JQuVBVQXdHN_pM_kC-Jjfg"
+    updater = Updater(TOKEN)
+    dp = updater.dispatcher
+
+    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
+
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == "__main__":
+    main()
